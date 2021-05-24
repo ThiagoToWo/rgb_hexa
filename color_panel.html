@@ -1,0 +1,98 @@
+<head>
+<title>RGB vs Hexadecimal</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<meta charset='utf-8'/>
+<style>
+	body {
+		text-align: center;
+	}
+	div {
+		border: 2px solid; 
+		height: 500;
+		background: black;
+	}
+	#r, #g, #b {
+		width: 256;
+	}
+	#rValue, #gValue, #bValue {
+		font-weight: bold;
+		color: white;
+		background: black;
+	}
+</style>
+</head>
+<body>
+	<h1>Painel de Cores RGB x Hexadecimal</h1>
+	<font color='red'>R</font> <input type='range' id='r' min='0' max='255' value='0' onchange='calcular1();'/> 
+	<input type='number' id='rValue' min='0' max='255' value='0' onchange='calcular2();'/>
+	<br/>
+	<font color='green'>G</font> <input type='range' id='g' min='0' max='255' value='0' onchange='calcular1();'/> 
+	<input type='number' id='gValue' min='0' max='255' value='0' onchange='calcular2();'/>
+	<br/>
+	<font color='blue'>B</font> <input type='range' id='b' min='0' max='255' value='0' onchange='calcular1();'/> 
+	<input type='number' id='bValue' min='0' max='255' value='0' onchange='calcular2();'/>
+	<br/>
+	Hexadecimal: <span id='hex'></span>
+	<br/>
+	<div id='painel'></div>
+	<script>
+		var red = document.getElementById('r');
+		var green = document.getElementById('g');
+		var blue = document.getElementById('b');
+		var rv = document.getElementById('rValue');
+		var gv = document.getElementById('gValue');
+		var bv = document.getElementById('bValue');
+		var hexa = document.getElementById('hex');
+		var div = document.getElementById('painel');
+		
+		function calcular1() {
+			var r = Number(red.value);
+			var g = Number(green.value);
+			var b = Number(blue.value);
+			
+			var cor = '#' + hex(r) + hex(g) + hex(b);
+			rv.value = r;
+			gv.value = g;
+			bv.value = b;
+			hexa.innerText = cor;
+			div.style.background = cor;
+
+			if (g < 180) {
+				gv.style.color = 'white';
+			} else gv.style.color = 'black';
+
+			rv.style.background = 'rgb(' + r + ', 0, 0)';
+			gv.style.background = 'rgb(0,' + g + ', 0)';
+			bv.style.background = 'rgb(0, 0, ' + b + ')';
+		}
+
+		function calcular2() {
+			var r = Number(rv.value);
+			var g = Number(gv.value);
+			var b = Number(bv.value);
+			
+			var cor = '#' + hex(r) + hex(g) + hex(b);
+			red.value = r;
+			green.value = g;
+			blue.value = b;
+			hexa.innerText = cor;
+			div.style.background = cor;
+
+			if (g < 180) {
+				gv.style.color = 'white';
+			} else gv.style.color = 'black';
+
+			rv.style.background = 'rgb(' + r + ', 0, 0)';
+			gv.style.background = 'rgb(0,' + g + ', 0)';
+			bv.style.background = 'rgb(0, 0, ' + b + ')';
+		}
+
+		function hex(valor) {
+			var h = valor.toString(16);
+			if (valor < 16) {
+				h = '0' + h;
+			}
+			return h;
+		}		
+	</script>
+</body>
